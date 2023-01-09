@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+
+<div style="width:500px; margin:0px auto;" class="container ">
+    <form method="POST">
+        {% csrf_token %}
+        {% bootstrap_form boardForm %}
+        <input class="btn btn-dark rounded-pill col-12" type="submit" value="생성하기"
+               onclick="location.href='/board/{{board.pk}}'">
+    </form>
+</div>
+
+{% endblock %}

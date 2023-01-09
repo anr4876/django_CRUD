@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mt-5">
+    <div class="col-12">
+        <div class="form-group" style="max-width:500px; margin-left:auto; margin-right:auto;">
+            <label for="title">제목</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="title"
+                    value="{{ board.title }}"
+                    readonly
+            />
+            <label for="content">내용</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="content"
+                    value="{{ board.content }}"
+                    readonly
+            />
+        </div>
+    </div>
+
+</div>
+<div style="max-width:500px; margin-left:auto; margin-right:auto;">
+    <td>
+        <button class="btn btn-secondary btn-sm rounded-pill"
+                onclick="location.href='update/{{board.pk}}'">수정
+        </button>
+    </td>
+</div>
+{% endblock %}
+

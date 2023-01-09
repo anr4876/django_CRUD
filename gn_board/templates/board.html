@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+<div style="width:1200px; margin:0px auto;">
+    <h2 style="text-align:center;">회원가입 게시판</h2><br>
+    {% if board %}
+    <table style="text-align:center; width:1200px; border:1px solid black;" class="table">
+        <thead>
+        <tr class="th_color">
+            <th>번호</th>
+            <th>제목</th>
+            <th>내용</th>
+            <th>작성자</th>
+            <th>자세하게</th>
+
+            <!--            <th>수정하기</th>-->
+            <th>삭제하기</th>
+        </tr>
+        </thead>
+        {% for board_list in board %}
+        <tbody>
+        <tr class="td_color">
+
+            <td> {{ board_list.pk }}</td>
+            <td>{{ board_list.title }}</td>
+            <td>{{ board_list.content }}</td>
+            <td>{{ board_list.user }}</td>
+            <td>
+                <button class="btn btn-outline-secondary" onclick="location.href='/detail/{{board_list.pk}}'">자세하게
+                </button>
+            </td>
+            <!--            <td>-->
+            <!--                <button class="btn btn-secondary btn-sm rounded-pill"-->
+            <!--                        onclick="location.href='/update/{{board_list.pk}}'">수정-->
+            <!--                </button>-->
+            <!--            </td>-->
+
+            <td>
+                <button class="btn btn-outline-danger" onclick="location.href='/delete/{{board_list.pk}}'">
+                    삭제
+                </button>
+            </td>
+        </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <!-- 이전페이지 -->
+            {% if board.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{board.previous_page_number}}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            {% endif %}
+            <!-- 페이지리스트 -->
+            {% for page_number in board.paginator.page_range %}
+            {% if page_number >= board.number|add:-5 and page_number <= board.number|add:5 %}
+            {% if page_number == board.number %}
+            <li class="page-item active"><a class="page-link" href="?&page={{page}}">{{page_number}}</a></li>
+
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+            <!-- 다음페이지 -->
+            {% if board.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{board.next_page_number}}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% if user.is_authenticated %}
+    <button class="btn btn-outline-info" onclick="location.href='/create/{{board_list.pk}}'">
+        생성하기
+    </button>
+    {% else %}
+    {% endif %}
+
+</div>
+
+{% endblock %}
