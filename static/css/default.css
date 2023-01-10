@@ -106,3 +106,7 @@ input[type=submit] {
 .table .td_color td {
     vertical-align:middle;
 }
+h4::before {
+  counter-increment: section;
+  content: "Section " counter(section) ": ";
+}

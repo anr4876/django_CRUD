@@ -6,9 +6,15 @@
     <form method="POST">
         {% csrf_token %}
         {% bootstrap_form boardForm %}
-        <input class="btn btn-dark rounded-pill col-12" type="submit" value="생성하기"
-               onclick="location.href='/board/{{board.pk}}'">
+        {% block script %}
+
+
+            <input class="btn btn-dark rounded-pill col-12" type="submit" value="생성하기">
+
+
+        {% endblock %}
     </form>
 </div>
+
 
 {% endblock %}
