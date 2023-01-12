@@ -2,42 +2,46 @@
 {% load bootstrap4 %}
 {% block content %}
 
+
 <div>
     <h4>작성자 : {{user}}</h4>
 </div>
 
 <div style="width:500px; margin:0px auto;" class="container ">
-
-    <h3>게시글 작성</h3>
-    <br>
-    <div style="border:1px solid gray; "></div>
-    <br><br>
-    <form method="POST"  enctype="multipart/form-data">
-
+    <form action="" method="POST" enctype="multipart/form-data">
+ {% csrf_token %}
+        <h3>게시글 작성</h3>
+        <br>
         <div class="form-group">
-            {% csrf_token %}
-            <label>제목</label>
-
-            <input type="text" class="form-control" name="title" id="title" aria-describedby="emailHelp"
-                   placeholder="제목을 입력하세요.">
+            <label for="id_title">제목</label>
+            <input type="text" name="title" maxlength="20" class="form-control" placeholder="Title" title required
+                   id="id_title">
         </div>
         <div class="form-group">
             <label>내용</label>
-  
             <input type="text" class="form-control" name="content" id="content" aria-describedby="emailHelp"
-                   placeholder="내용을 입력하세요."   style="height: 400px; padding-bottom: 400px">
+                   placeholder="내용을 입력하세요." style="height: 300px; padding-bottom: 300px; padding-top:15px;">
         </div>
 
 
-<!--            <div class="form-group">-->
-<!--                <input type="file" name="files" class="form-control-file" id="exampleFormControlFile1">-->
-<!--            </div>-->
+        <div onchange="dropfile();">
+            <input multiple="multiple"
+                   style="apperance: none;  padding:5px;  margin:1px; border-radius: .50rem; -webkit-apperance: none; padding-bottom:100px; border:1px solid black; width:100%;"
+                   type="file" name="upload_files"/>
+        </div>
+        <!--  ======================================================================================================================   -->
+        <!--  파일 업로드   -->
+        <!--  ======================================================================================================================   -->
+        <!--        <form method="POST" enctype="multipart/form-data">-->
 
+        <!--        </form>-->
+        <!--  ======================================================================================================================   -->
+        <!--  파일 업로드   -->
+        <!--  ======================================================================================================================   -->
 
-        <input class="btn btn-dark rounded-pill col-12" type="submit" value="작성하기">
+        <input style="margin-top:10px" class="btn btn-dark rounded-pill col-12" type="submit" value="작성하기">
     </form>
 
 </div>
-
 
 {% endblock %}

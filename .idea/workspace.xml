@@ -6,19 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="5868406f-47b8-4534-a162-0b4410b65283" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gn_board/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/gn_board/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gn_board/migrations/0006_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gn_board/migrations/0007_alter_board_content.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/accounts/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gn_board/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/gn_board/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gn_board/migrations/0012_initial.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/gn_board/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/gn_board/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gn_board/templates/board.html" beforeDir="false" afterPath="$PROJECT_DIR$/gn_board/templates/board.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gn_board/templates/create.html" beforeDir="false" afterPath="$PROJECT_DIR$/gn_board/templates/create.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gn_board/templates/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/gn_board/templates/detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gn_board/templates/update.html" beforeDir="false" afterPath="$PROJECT_DIR$/gn_board/templates/update.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gn_board/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/gn_board/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gn_board/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/gn_board/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/head.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/head.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,8 +57,8 @@
       <recent name="C:\CRUD_Project" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\CRUD_Project\board" />
       <recent name="C:\CRUD_Project\static\css" />
+      <recent name="C:\CRUD_Project\board" />
     </key>
   </component>
   <component name="RunManager" selected="Python.django-admin">

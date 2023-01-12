@@ -2,35 +2,41 @@
 
 {% block content %}
 
+
 <div class="row mt-5">
     <div class="col-12">
-        <div class="form-group" style="max-width:700px; margin-left:auto; margin-right:auto;">
-
-            <input
-                    type="text"
-                    id="title"
-                    value="{{ board.title }}"
-                    style="font-size:22px background-color: white; border:none; padding-bottom:5px"
-                    readonly
-            />
-            <span style="inline-block; float:right">작성자: {{ board.user }}</span>
-            <div style="border:1px solid gray;margin: 3px 0 20px 0"></div>
-            <label for="content">내용</label>
-            <input
-                    type="text"
-                    class="form-control"
-                    id="content"
-                    value="{{ board.content }}"
-                    style="height: 400px; padding-bottom: 400px"
-                    readonly
-            />
+        <div style="max-width:500px; margin-left:auto; margin-right:auto;">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">제목 : {{ board.title }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>작성자 : {{ board.user }}</td>
+                </tr>
+                <tr style="height:300px;">
+                    <td>{{ board.content }}</td>
+                </tr>
+                <tr>
+                    <td>{% if board.upload_files %}
+                        <div class="col-12 text-right">
+                            <span>첨부파일 :&nbsp;</span>
+                            <a href="{% url 'board_download' board.list_num %}">{{ board.filename}}</a>
+                        </div>
+                        {% endif %}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-
 </div>
 
+
 <div style="text-align:center; max-width:500px; margin-left:auto; margin-right:auto;">
-    <td >
+    <td>
 
         {% if user.is_authenticated %}
         <button class="btn btn-secondary btn-sm rounded-pill"
