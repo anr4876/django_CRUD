@@ -16,9 +16,13 @@
                 <tr>
                     <td>작성자 : {{ board.user }}</td>
                 </tr>
+                 <tr >
+                    <td>작성 일자 : {{ board.board_time }}</td>
+                </tr>
                 <tr style="height:300px;">
                     <td>{{ board.content }}</td>
                 </tr>
+
                 <tr>
                     <td>{% if board.upload_files %}
                         <div class="col-12 text-right">
