@@ -10,9 +10,10 @@ from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 import urllib
 import os
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, response
 import mimetypes
 from django.shortcuts import get_object_or_404
+import csv
 
 
 # =================================================================================================================
@@ -22,12 +23,11 @@ from django.shortcuts import get_object_or_404
 
 # 전체 화면과 생성하기
 def board(request):
-
     page = request.GET.get('page', '1')
     kw = request.GET.get('keyword', '')
-    #search_type = request.GET.get('type', '')
+    # search_type = request.GET.get('type', '')
 
-    if kw :
+    if kw:
         board = Board.objects.filter(
             Q(title__icontains=kw) |  # 제목 검색
             Q(content__icontains=kw)
@@ -44,14 +44,49 @@ def board(request):
 
     context = {
         'board': page_obj,
-        'bd':bd,
-        'keyword':kw,
+        'bd': bd,
+        'keyword': kw,
     }
     return render(request, 'board.html', context)
+
 
 # =================================================================================================================
 # /메인 화면 생성
 # =================================================================================================================
+
+
+# =================================================================================================================
+# 엑셀 다운로드 기능
+# =================================================================================================================
+
+def ex_download_view(request, pk):
+    board = get_object_or_404(Board, pk=pk)
+
+    f = open(board.title + ".csv", "wt", newline='', encoding="utf-8-sig")
+
+    wr = csv.writer(f)
+
+    wr.writerow(['제목', '작성자', '작성 일자', '내용'])
+    wr.writerow([board.title, board.user, board.board_time, board.content])
+
+    f.close()
+
+    url ="C:\CRUD_Project/" + board.title + ".csv"
+    file_url = urllib.parse.unquote(url)
+
+    if os.path.exists(file_url):
+        with open(file_url, 'rb') as fh:
+            quote_file_url = urllib.parse.quote(board.title.encode('utf-8')) + '.csv'
+            print(quote_file_url)
+            response = HttpResponse(fh.read(), content_type=mimetypes.guess_type(file_url)[0])
+            response['Content-Disposition'] = 'attachment;filename*=UTF-8\'\'%s' % quote_file_url
+            return response
+        raise Http404
+
+# =================================================================================================================
+# /엑셀 다운로드 기능
+# =================================================================================================================
+
 
 
 # =================================================================================================================
@@ -73,8 +108,6 @@ def boardEdit(request, pk):
 
             board.save()
 
-
-
             return redirect('board')
 
         else:
@@ -85,7 +118,6 @@ def boardEdit(request, pk):
 # =================================================================================================================
 # /수정 화면 생성
 # =================================================================================================================
-
 
 
 # =================================================================================================================
@@ -103,11 +135,10 @@ def boardCreate(request):
             upload_files = None
 
             if request.FILES:
-
-                    files = request.FILES['upload_files']
-                    fs = FileSystemStorage(location='media', base_url='media')
-                    filename = fs.save(files.name, files)
-                    upload_files = fs.url(filename)
+                files = request.FILES['upload_files']
+                fs = FileSystemStorage(location='media', base_url='media')
+                filename = fs.save(files.name, files)
+                upload_files = fs.url(filename)
 
             board = Board(
                 title=title,
@@ -124,6 +155,7 @@ def boardCreate(request):
         boardForm = BoardForm
         return render(request, 'create.html', {'boardForm': boardForm})
 
+
 # =================================================================================================================
 # /생성 화면 생성
 # =================================================================================================================
@@ -136,7 +168,6 @@ def boardCreate(request):
 
 # 삭제
 def boardDelete(request, pk):
-
     board = Board.objects.get(list_num=pk)
     if request.user == board.user:
         board.delete()
@@ -144,6 +175,7 @@ def boardDelete(request, pk):
         messages.warning(request, "권한이 없습니다.")
 
     return redirect('board')
+
 
 # =================================================================================================================
 #  /데이터베이스 칼럼 삭제 구현
@@ -156,6 +188,7 @@ def boardDelete(request, pk):
 def dDetail(request, pk):
     board = Board.objects.get(list_num=pk)
     return render(request, 'detail.html', {'board': board})
+
 
 # =================================================================================================================
 #  /자세히 보기 화면 생성
@@ -173,8 +206,8 @@ def login_message_required(function):
             messages.info(request, "로그인한 사용자만 이용할 수 있습니다.")
             return redirect(settings.LOGIN_URL)
         return function(request, *args, **kwargs)
-    return wrap
 
+    return wrap
 
 
 # =================================================================================================================
@@ -182,15 +215,13 @@ def login_message_required(function):
 # =================================================================================================================
 
 
-
 # =================================================================================================================
-#  파일 삭제 기능 구현
+#  파일 다운로드 기능 구현
 # =================================================================================================================
 
 
 @login_message_required
 def board_download_view(request, pk):
-
     board = get_object_or_404(Board, pk=pk)
     url = board.upload_files.url[1:]
     file_url = urllib.parse.unquote(url)
@@ -203,7 +234,6 @@ def board_download_view(request, pk):
             return response
         raise Http404
 
-
 # =================================================================================================================
-#  /파일 삭제 기능 구현
+#  /파일 다운로드 기능 구현
 # =================================================================================================================

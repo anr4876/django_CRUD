@@ -31,6 +31,7 @@
                         </div>
                         {% endif %}
                     </td>
+
                 </tr>
                 </tbody>
             </table>
@@ -39,7 +40,17 @@
 </div>
 
 
+
 <div style="text-align:center; max-width:500px; margin-left:auto; margin-right:auto;">
+ <form id="frm_excel" name="frm_excel" enctype="multipart/form-data">
+
+
+
+        <a class="btn"href="{% url 'ex_download' board.list_num %}">엑셀 파일 업로드</a>
+
+ </form>
+
+
     <td>
 
         {% if user.is_authenticated %}
