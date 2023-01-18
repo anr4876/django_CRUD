@@ -1,18 +1,45 @@
 {% extends 'base.html' %}
-{% load bootstrap4 %}
+
 {% block content %}
 
-<div class="container" style="max-width:500px;">
-    <form method="POST">
-        {% csrf_token %}
-        {% bootstrap_form boardForm %}
-        <table>
-<!--            {{form.as_table}}-->
-<!--            <div class="form-group">-->
-<!--                <input type="file" class="form-control-file" id="exampleFormControlFile1">-->
-<!--            </div>-->
-        </table>
-        <input class="btn btn-dark rounded-pill col-12" type="submit" value="수정하기">
+
+
+<div>
+    <h4>작성자 : {{user}}</h4>
+</div>
+
+<div style="width:500px; margin:0px auto;" class="container ">
+    <form action="" method="POST" enctype="multipart/form-data">
+
+        <h3>게시글 작성</h3>
+        <br>
+        <div class="form-group">
+            <label for="id_title">제목</label>
+            <input type="text" name="title" maxlength="20" class="form-control" placeholder="{{boardForm.title}}
+        </div>
+        <div class="form-group">
+            <label>내용</label>
+            <textarea type="text" class="form-control" name="content" id="content" aria-describedby="emailHelp"
+                     style="height: 300px; padding-bottom: 300px; padding-top:15px;" placeholder={{boardForm.content}}
+        </div>
+
+
+        <div onchange="dropfile();">
+            <input multiple="multiple"
+                   style="apperance: none;  padding:5px;  margin:1px; border-radius: .50rem; -webkit-apperance: none; padding-bottom:100px; border:1px solid black; width:100%;"
+                   type="file" name="upload_files"/>
+        </div>
+        <!--  ======================================================================================================================   -->
+        <!--  파일 업로드   -->
+        <!--  ======================================================================================================================   -->
+        <!--        <form method="POST" enctype="multipart/form-data">-->
+
+        <!--        </form>-->
+        <!--  ======================================================================================================================   -->
+        <!--  파일 업로드   -->
+        <!--  ======================================================================================================================   -->
+
+        <input style="margin-top:10px" class="btn btn-dark rounded-pill col-12" type="submit" value="작성하기">
     </form>
 
 </div>
