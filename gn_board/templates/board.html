@@ -11,19 +11,34 @@
     <!--  ======================================================================================================================   -->
     <!--  검색 기능   -->
     <!--  ======================================================================================================================   -->
+    <div style="disply:block">
+        <form class="d-flex" id="searchForm" method="get" action="{% url 'board' %}">
+            <div style="width:70%">
+                <label for="start">시작 : </label>
+
+                <input type="date" id="start" name="trip_start"
+                       value="{{day_time|default_if_none:''}}"
+                       min="2022-12-1">
+                <label for="start">종료 : </label>
+                <input type="date" id="last" name="trip_last"
+                       value="{{day_time2|default_if_none:''}}"
+                       min="2022-12-1">
+            </div>
+
+            <select name="list_s" id="select">
+                <option value="all_list">전체</option>
+                <option value="name">제목</option>
+                <option value="content">내용</option>
+            </select>
 
 
+            <input class="form-control mr-sm-2" type="text" id="search_kw" placeholder="검색어를 입력하세요."
+                   aria-label="Search" value="{{keyword|default_if_none:''}}" name="keyword">
+            <input type="hidden" id="page" name="page" value="{{ page }}">
+            <button class="btn btn-outline-success" style="width: 20%" type="submit">검색</button>
+        </form>
 
-        <div style="disply:block">
-
-            <form class="d-flex" id="searchForm" method="get" action="{% url 'board' %}">
-
-                <input class="form-control mr-sm-2" type="text" id="search_kw" placeholder="검색어를 입력하세요."
-                       aria-label="Search" value="{{keyword|default_if_none:''}}" name="keyword">
-                <input type="hidden" id="page" name="page" value="{{ page }}">
-                <button class="btn btn-outline-success" style="width: 20%" type="submit">검색</button>
-            </form>
-        </div>
+    </div>
 
     <!--  ======================================================================================================================   -->
     <!--  /검색 기능   -->
@@ -149,7 +164,7 @@
     {% else %}
     <div style="padding-right: 25%"></div>
     {% endif %}
-     <!-- /생성하기 버튼 -->
+    <!-- /생성하기 버튼 -->
 
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
@@ -215,6 +230,11 @@ btn_search.addEventListener('click', function() {
     document.getElementById('page').value = 1;  // 검색버튼을 클릭할 경우 1페이지부터 조회한다.
     document.getElementById('searchForm').submit();
 });
+
+
+
+
+
 
 
 

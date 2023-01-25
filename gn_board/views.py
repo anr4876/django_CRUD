@@ -1,3 +1,5 @@
+from datetime import date
+from datetime import datetime
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -25,18 +27,43 @@ import csv
 def board(request):
     page = request.GET.get('page', '1')
     kw = request.GET.get('keyword', '')
+    list_s = request.GET.get('list_s')
+
+    trip_start = request.GET.get('trip_start')
+    trip_last = request.GET.get('trip_last')
+    start = '2023-01-01'
+    if trip_last == "":
+        trip_last = date.today()
+    if trip_start == "":
+        trip_start = start
+
     # search_type = request.GET.get('type', '')
 
-    if kw:
-        board = Board.objects.filter(
-            Q(title__icontains=kw) |  # 제목 검색
-            Q(content__icontains=kw)
 
-        ).distinct()
+    if kw:
+
+        if list_s == 'all_list':
+            board = Board.objects.filter(board_time__range=[trip_start, trip_last]).filter(
+                Q(title__icontains=kw) |  # 제목 검색
+                Q(content__icontains=kw)
+            ).distinct()
+
+        elif list_s == 'name':
+            board = Board.objects.filter(board_time__range=[trip_start, trip_last]).filter(
+                Q(title__icontains=kw)   # 제목 검색
+            ).distinct()
+
+        elif list_s == 'content':
+            board = Board.objects.filter(board_time__range=[trip_start, trip_last]).filter(
+                Q(content__icontains=kw)
+            ).distinct()
 
 
     else:
-        board = Board.objects.all().order_by('-list_num')
+        print(trip_last)
+        print(trip_start)
+        print(1111111111111111)
+        board = Board.objects.filter(board_time__range=[trip_start, trip_last]).all().order_by('-list_num')
 
     bd = board.count()
     paginator = Paginator(board, 8)
