@@ -29,8 +29,8 @@ def board(request):
     kw = request.GET.get('keyword', '')
     list_s = request.GET.get('list_s')
 
-    trip_start = request.GET.get('trip_start')
-    trip_last = request.GET.get('trip_last')
+    trip_start = request.GET.get('trip_start', '')
+    trip_last = request.GET.get('trip_last', '')
     start = '2023-01-01'
     if trip_last == "":
         trip_last = date.today()
@@ -58,11 +58,8 @@ def board(request):
                 Q(content__icontains=kw)
             ).distinct()
 
-
     else:
-        print(trip_last)
-        print(trip_start)
-        print(1111111111111111)
+
         board = Board.objects.filter(board_time__range=[trip_start, trip_last]).all().order_by('-list_num')
 
     bd = board.count()

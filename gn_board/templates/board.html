@@ -25,6 +25,7 @@
                        min="2022-12-1">
             </div>
 
+
             <select name="list_s" id="select">
                 <option value="all_list">전체</option>
                 <option value="name">제목</option>
@@ -94,7 +95,11 @@
                 {% endwith %}
 
                 <!--            <td> {{ forloop.counter }}</td>-->
-                <td>{{ board_list.title }}</td>
+                <td style="display:block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100px;">{{ board_list.title }}</td>
                 <td>{{ board_list.user }}</td>
                 <td>{{ board_list.board_time }}</td>
 
