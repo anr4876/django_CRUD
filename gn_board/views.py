@@ -1,3 +1,4 @@
+import datetime
 from datetime import date
 from datetime import datetime
 from django.shortcuts import render, redirect
@@ -150,6 +151,7 @@ def boardEdit(request, pk):
 
 # 생성
 def boardCreate(request):
+    now = datetime.now()
     if request.method == 'POST':
         try:
             title = request.POST['title']
@@ -157,10 +159,10 @@ def boardCreate(request):
             user = request.user
             filename = None
             upload_files = None
-
+            file_now = "media/{}/{}/{}/{}{}{}".format(now.year, now.month, now.day, now.hour, now.minute, now.second)
             if request.FILES:
                 files = request.FILES['upload_files']
-                fs = FileSystemStorage(location='media', base_url='media')
+                fs = FileSystemStorage(location=file_now, base_url=file_now)
                 filename = fs.save(files.name, files)
                 upload_files = fs.url(filename)
 
@@ -249,7 +251,7 @@ def board_download_view(request, pk):
     board = get_object_or_404(Board, pk=pk)
     url = board.upload_files.url[1:]
     file_url = urllib.parse.unquote(url)
-
+    
     if os.path.exists(file_url):
         with open(file_url, 'rb') as fh:
             quote_file_url = urllib.parse.quote(board.filename.encode('utf-8'))
