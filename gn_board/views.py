@@ -159,12 +159,14 @@ def boardCreate(request):
             user = request.user
             filename = None
             upload_files = None
+
             file_now = "media/{}/{}/{}/{}{}{}".format(now.year, now.month, now.day, now.hour, now.minute, now.second)
             if request.FILES:
                 files = request.FILES['upload_files']
                 fs = FileSystemStorage(location=file_now, base_url=file_now)
                 filename = fs.save(files.name, files)
                 upload_files = fs.url(filename)
+                print(filename)
 
             board = Board(
                 title=title,
